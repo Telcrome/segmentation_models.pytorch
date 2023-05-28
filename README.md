@@ -469,22 +469,25 @@ $ pip install git+https://github.com/qubvel/segmentation_models.pytorch
 
 ### 🤝 Contributing
 
-#### Install SMP  
-
+##### Install linting and formatting pre-commit hooks
 ```bash
-make install_dev  # create .venv, install SMP in dev mode
+pip install pre-commit black==22.3.0 flake8==4.0.1
+pre-commit install
 ```
 
-#### Run tests and code checks  
-
+##### Run tests
 ```bash
-make all          # run flake8, black, tests
+pytest -p no:cacheprovider
 ```
 
-#### Update table with encoders  
-
+##### Run tests in docker
 ```bash
-make table        # generate table with encoders and print to stdout
+$ docker build -f docker/Dockerfile.dev -t smp:dev . && docker run --rm smp:dev pytest -p no:cacheprovider
+```
+
+##### Generate table with encoders (in case you add a new encoder)
+```bash
+$ docker build -f docker/Dockerfile.dev -t smp:dev . && docker run --rm smp:dev python misc/generate_table.py
 ```
 
 ### 📝 Citing
